@@ -1,0 +1,34 @@
+{
+    "name": "simple dictionary",
+    "descrition": "A simple dictionary with simple words",
+    "entries":[
+        {"word": "apple", "definition": "A fruit that is typically red, green, or yellow."},
+        {"word": "book", "definition": "A set of written, printed, or blank pages fastened together."},
+        {"word": "cat", "definition": "A small domesticated carnivorous mammal."},
+        {"word": "dog", "definition": "A domesticated carnivorous mammal that typically has a long snout."},
+        {"word": "elephant", "definition": "A large herbivorous mammal with a trunk."},
+        {"word": "flower", "definition": "The seed-bearing part of a plant."},
+        {"word": "guitar", "definition": "A stringed musical instrument."},
+        {"word": "house", "definition": "A building for human habitation."},
+        {"word": "ice", "definition": "Frozen water."},
+        {"word": "jungle", "definition": "An area of land overgrown with dense forest and tangled vegetation."},
+        {"word": "kite", "definition": "A toy consisting of a light frame with thin material stretched over it."},
+        {"word": "lion", "definition": "A large tawny-colored cat that lives in prides."},
+        {"word": "mountain", "definition": "A large natural elevation of the earth's surface."},
+        {"word": "notebook", "definition": "A small book with blank or ruled pages for writing notes."},
+        {"word": "ocean", "definition": "A vast body of salt water that covers almost three-quarters of the earth's surface."},
+        {"word": "pencil", "definition": "An instrument for writing or drawing, consisting of a thin stick of graphite or a similar substance."},
+        {"word": "queen", "definition": "The female ruler of an independent state, especially one who inherits the position by right of birth."},
+        {"word": "rain", "definition": "Moisture condensed from the atmosphere that falls visibly in separate drops."},
+        {"word": "sun", "definition": "The star around which the earth orbits."},
+        {"word": "tree", "definition": "A woody perennial plant, typically having a single stem or trunk."},
+        {"word": "umbrella", "definition": "A device consisting of a circular canopy of cloth on a folding metal frame supported by a central rod."},
+        {"word": "violin", "definition": "A stringed musical instrument of treble pitch."},
+        {"word": "water", "definition": "A colorless, transparent, odorless liquid that forms the seas, lakes, rivers, and rain."},
+        {"word": "xylophone", "definition": "A musical instrument played by striking a row of wooden bars of graduated length with one or more small wooden or plastic mallets."},
+        {"word": "yacht", "definition": "A medium-sized sailboat equipped for cruising or racing."},
+        {"word": "zebra", "definition": "An African wild horse with black-and-white stripes and an erect mane."}
+
+
+    ]
+}
