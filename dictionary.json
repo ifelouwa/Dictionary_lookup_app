@@ -1,7 +1,4 @@
-{
-    "name": "simple dictionary",
-    "descrition": "A simple dictionary with simple words",
-    "entries":[
+[
         {"word": "apple", "definition": "A fruit that is typically red, green, or yellow."},
         {"word": "book", "definition": "A set of written, printed, or blank pages fastened together."},
         {"word": "cat", "definition": "A small domesticated carnivorous mammal."},
@@ -30,5 +27,4 @@
         {"word": "zebra", "definition": "An African wild horse with black-and-white stripes and an erect mane."}
 
 
-    ]
-}
+]

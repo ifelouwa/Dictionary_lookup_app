@@ -1,5 +1,4 @@
 import express from 'express';
-// import dictionary from './dictionary.json' with {type : 'json'};
 import lookupRoute from './routes/jsonRoute.js';
 
 const app = express();
