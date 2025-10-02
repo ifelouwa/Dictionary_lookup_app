@@ -5,36 +5,88 @@ import {handleLookUp, handleallWord,handleAdd,handleDelete} from "../Controllers
 
 const router = express.Router();
 
-router.get('/lookup', (req,res) => {
-    
-   const allWord = dictionary
+// Load dictionary data
+const dictionary = JSON.parse(fs.readFileSync("./dictionary.json", "utf-8"));
 
-  return res.status(200).json({
-    message:"word list",
-    allWord
-  })
-})
+// Route for defining a word
+router.get("/define", (req, res) => {
+  try {
+    const figure = req.query.word?.toLowerCase(); // query param
 
-router.post('/add', (req,res) => {
-    
- const {word, definition} = req.body;
-      if(!word || !definition){
-        return res.status(400).json({
-            message:"Please enter a Word and a Definition"
-        })
-      }
+    if (!figure) {
+      return res.status(500).json({
+        success: false,
+        message: "Please give a valid word"
+      });
+    }
 
-      const lowerWord = word.toLowerCase
-      dictionary[lowerWord] = definition
-       fs.writeFileSync("dictionary.json", JSON.stringify(dictionary, null, 2));
+    const entry = dictionary.find(item => item.word.toLowerCase() === figure);
+
+    if (entry) {
+      console.log("Status 200: successful word searching");
+      return res.status(200).json({
+        success: true,
+        word: entry.word,
+        definition: entry.definition
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: "This word does not exist in the dictionary"
+      });
+    }
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      message: "The server crashed"
+    });
+  }
+});
+
+//Route for adding a new word
+router.post("/add", (req, res) => {
+  try {
+    const { word, definition } = req.body;
+
+    if (!word || !definition) {
+      return res.status(500).json({
+        success: false,
+        message: "Please provide both a word and a definition",
+      });
+    }
+
+    let data = JSON.parse(fs.readFileSync(dictionary, "utf-8"));
+
+    // check duplicates
+    const exists = data.find(
+      (item) => item.word.toLowerCase() === word.toLowerCase()
+    );
+    if (exists) {
+      return res.status(400).json({
+        success: false,
+        message: "Word already exists in dictionary",
+      });
+    }
+
+    const newEntry = { word, definition };
+    data.push(newEntry);
+
+    fs.writeFileSync(dictionary, JSON.stringify(data, null, 2));
+
+    return res.status(201).json({
+      success: true,
+      message: "Word added successfully",
+      entry: newEntry,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: "The server crashed",
+    });
+  }
+});
 
 
-    res.status(201).json({
-        message:"word successfully added",
-        word: lowerWord,
-        definition: definition
-    })
-})
 
 router.delete('/delete',(req, res) => {
   const word = req.query.word?.toLowerCase();
@@ -47,8 +99,6 @@ fs.writeFileSync("dictionary.json", JSON.stringify(dictionary, null, 2));
    return res.status(200).json({ 
     message:  "deleted successfully.",
     removedWord });
-  
-} )
 
 
 export default router;
