@@ -10,11 +10,6 @@ app.use(express.urlencoded ({extended: true}));
 
 // Accessing Routes
 app.use('/jsonRoute', lookupRoute);
-=======
-// attach routes
-app.use("/api", jsonRoute);  // handles /api/define
-app.use("/api", jsonRoute);    // handles /api/add
->>>>>>> error-handling-query
 
 //  If no route mateches, it sends 404 error
 app.use((req, res, next) => {
