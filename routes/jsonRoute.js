@@ -91,7 +91,7 @@ router.post("/add", (req, res) => {
 router.delete('/delete',(req, res) => {
     try {
         const word = req.query.word?.toLowerCase();
-  if (!word) return res.json({ message: "Please provide a word " });
+  if (!word){ return res.json(400)({ message: "Please provide a word " })};
 
     const removedWord = delete dictionary[word]
   
