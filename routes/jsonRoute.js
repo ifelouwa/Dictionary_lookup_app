@@ -1,6 +1,7 @@
 import express from 'express';
-import fs from 'fs';
-import dictionary from '../dictionary.json' with {type : 'json'};
+import  dictionary from "../dictionary.json"
+import fs from "fs"
+import {handleLookUp, handleallWord,handleAdd,handleDelete} from "../Controllers"
 
 const router = express.Router();
 
@@ -84,5 +85,29 @@ router.post("/add", (req, res) => {
     });
   }
 });
+
+
+
+router.delete('/delete',(req, res) => {
+    try {
+        const word = req.query.word?.toLowerCase();
+  if (!word) return res.json({ message: "Please provide a word " });
+
+    const removedWord = delete dictionary[word]
+  
+fs.writeFileSync("dictionary.json", JSON.stringify(dictionary, null, 2));
+
+   return res.status(200).json({ 
+    message:  "deleted successfully.",
+    removedWord })
+    } catch (error) {
+        return res.status(400).json({
+      success: false,
+      message: "The server crashed",
+    });
+    }
+  
+});
+
 
 export default router;
