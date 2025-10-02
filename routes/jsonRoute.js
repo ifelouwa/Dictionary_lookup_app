@@ -89,7 +89,8 @@ router.post("/add", (req, res) => {
 
 
 router.delete('/delete',(req, res) => {
-  const word = req.query.word?.toLowerCase();
+    try {
+        const word = req.query.word?.toLowerCase();
   if (!word) return res.json({ message: "Please provide a word " });
 
     const removedWord = delete dictionary[word]
@@ -98,7 +99,15 @@ fs.writeFileSync("dictionary.json", JSON.stringify(dictionary, null, 2));
 
    return res.status(200).json({ 
     message:  "deleted successfully.",
-    removedWord });
+    removedWord })
+    } catch (error) {
+        return res.status(400).json({
+      success: false,
+      message: "The server crashed",
+    });
+    }
+  
+});
 
 
 export default router;
