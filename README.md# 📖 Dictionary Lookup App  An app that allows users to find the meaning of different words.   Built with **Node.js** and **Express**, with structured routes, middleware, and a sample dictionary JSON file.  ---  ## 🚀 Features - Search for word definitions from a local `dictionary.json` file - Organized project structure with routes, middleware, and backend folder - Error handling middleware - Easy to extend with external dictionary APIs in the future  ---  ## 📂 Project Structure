@@ -49,12 +49,12 @@ Installation & Setup
    npm run dev
   
  API Endpoints
-GET /api/word/:term**
+GET /api/word?term=word
   Returns the definition of a word if it exists in `dictionary.json`.
 
   Example Request:
 
-  GET http://localhost:3000/api/word/apple
+  GET http://localhost:4000/api/word?term=apple
   
 
   Example Response:
