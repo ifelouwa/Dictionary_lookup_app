@@ -48,8 +48,6 @@ Installation & Setup
    ```bash
    npm run dev
   
-
-
  API Endpoints
 GET /api/word/:term**
   Returns the definition of a word if it exists in `dictionary.json`.
@@ -59,7 +57,7 @@ GET /api/word/:term**
   GET http://localhost:3000/api/word/apple
   
 
-  Example Response:**
+  Example Response:
 
    json
   {
