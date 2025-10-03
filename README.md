@@ -47,7 +47,7 @@ The server will run at: http://localhost:4000
 ## API Endpoints
 1. **Define a word**
 
-Endpoint: GET /jsonRoute/define?word=<your-word>
+Endpoint: GET /jsonRoute/define?word=**your-word**
 
 Response Example:
 
@@ -72,7 +72,7 @@ Request Body Example:
 
 3. **Delete a word**
 
-Endpoint: DELETE /jsonRoute/delete?word=<your-word>
+Endpoint: DELETE /jsonRoute/delete?word=**your-word**
 
 Response Example:
 
