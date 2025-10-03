@@ -1,4 +1,4 @@
- Dictionary Lookup App
+ #Dictionary Lookup App
 
 An app that allows users to find the meaning of different words.  
 Built with Node.js and Express , with structured routes, middleware, and a sample dictionary JSON file.
@@ -11,7 +11,7 @@ Built with Node.js and Express , with structured routes, middleware, and a sampl
 - Easy to extend with external dictionary APIs in the future
 
 
- Project Structure
+ #Project Structure
  Dictionary_lookup_app/
 ├── Middleware/          # Middleware functions (e.g., ErrorHandler.js)
 ├── backend/             # Backend logic (controllers, services, etc.)
