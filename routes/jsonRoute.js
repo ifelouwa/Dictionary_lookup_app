@@ -17,7 +17,7 @@ function saveDictionary(data) {
 // Route for defining a word
 router.get("/define", (req, res) => {
   try {
-    const figure = req.query.word?.toLowerCase(); // query param
+    const figure = req.query.word?.toLowerCase().trim(); // query param
 
     if (!figure) {
       return res.status(400).json({
