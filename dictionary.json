@@ -94,5 +94,4 @@
         {"word": "webhook", "definition": "A method of augmenting or altering web page behavior using custom callbacks triggered by events."},
         {"word": "schema", "definition": "The structure or organization of a database, defining how data is arranged and related."},
         {"word": "latency", "definition": "The time delay between a request being sent and the response being received in a network or system."}
-
 ]

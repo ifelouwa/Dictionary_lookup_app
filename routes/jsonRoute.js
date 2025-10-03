@@ -1,6 +1,5 @@
 import express from 'express';
 import fs from 'fs';
-import dictionary from '../dictionary.json' with {type : 'json'};
 
 const router = express.Router();
 
