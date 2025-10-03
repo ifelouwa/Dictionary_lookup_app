@@ -2,9 +2,17 @@ import express from 'express';
 import fs from 'fs';
 
 const router = express.Router();
+const filePath = "./dictionary.json";
 
-// Load dictionary data
-const dictionary = JSON.parse(fs.readFileSync("./dictionary.json", "utf-8"));
+
+// Loads the dictionary data afresh each time 
+function loadDictionary() {
+  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+}
+// Saves dictionary data
+function saveDictionary(data) {
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
 
 // Route for defining a word
 router.get("/define", (req, res) => {
@@ -12,12 +20,13 @@ router.get("/define", (req, res) => {
     const figure = req.query.word?.toLowerCase(); // query param
 
     if (!figure) {
-      return res.status(500).json({
+      return res.status(400).json({
         success: false,
         message: "Please give a valid word"
       });
     }
 
+    const dictionary = loadDictionary();
     const entry = dictionary.find(item => item.word.toLowerCase() === figure);
 
     if (entry) {
@@ -25,6 +34,7 @@ router.get("/define", (req, res) => {
       return res.status(200).json({
         success: true,
         word: entry.word,
+        transcription: entry.transcription,
         definition: entry.definition
       });
     } else {
@@ -34,7 +44,7 @@ router.get("/define", (req, res) => {
       });
     }
   } catch (err) {
-    return res.status(400).json({
+    return res.status(500).json({
       success: false,
       message: "The server crashed"
     });
@@ -44,19 +54,26 @@ router.get("/define", (req, res) => {
 //Route for adding a new word
 router.post("/add", (req, res) => {
   try {
-    const { word, definition } = req.body;
+    const { word, transcription, definition } = req.body;
 
-    if (!word || !definition) {
-      return res.status(500).json({
+    if (!word || !transcription || !definition) {
+      return res.status(400).json({
         success: false,
-        message: "Please provide both a word and a definition",
+        message: "Please provide the word, transcription, and definition",
       });
     }
+    const wordRegex = /^[a-zA-Z-]+$/;
+    if (!wordRegex.test(word)) {
+      return res.status(400).json({
+        success: false,
+        message: "Word must only contain letters and hyphens",
+      });
+}
 
-    let data = JSON.parse(fs.readFileSync(dictionary, "utf-8"));
+    const dictionary = loadDictionary();
 
     // check duplicates
-    const exists = data.find(
+    const exists = dictionary.find(
       (item) => item.word.toLowerCase() === word.toLowerCase()
     );
     if (exists) {
@@ -66,10 +83,14 @@ router.post("/add", (req, res) => {
       });
     }
 
-    const newEntry = { word, definition };
-    data.push(newEntry);
-
-    fs.writeFileSync(dictionary, JSON.stringify(data, null, 2));
+    const newEntry = { 
+      word: word.toLowerCase(),
+      transcription,
+      definition 
+    };
+    
+    dictionary.push(newEntry);
+    saveDictionary(dictionary);
 
     return res.status(201).json({
       success: true,
@@ -77,7 +98,7 @@ router.post("/add", (req, res) => {
       entry: newEntry,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       success: false,
       message: "The server crashed",
     });
@@ -85,26 +106,41 @@ router.post("/add", (req, res) => {
 });
 
 
-
+// Route for deleting a word
 router.delete('/delete',(req, res) => {
     try {
         const word = req.query.word?.toLowerCase();
-  if (!word){ return res.json(400)({ message: "Please provide a word " })};
+  if (!word){ 
+    return res.status(400).json({ 
+      success: false,
+      message: "Please provide a word " 
+    });
+  }
 
-    const removedWord = delete dictionary[word]
+  let dictionary = loadDictionary();
+  const initialLength = dictionary.length;
   
-fs.writeFileSync("dictionary.json", JSON.stringify(dictionary, null, 2));
+  dictionary = dictionary.filter(item => item.word.toLowerCase() !== word);
+
+  if (dictionary.length === initialLength) {
+    return res.status(404).json({
+      success: false,
+      message: "Word not found in Dictionary",
+    });
+  }
+
+  saveDictionary(dictionary);
 
    return res.status(200).json({ 
-    message:  "deleted successfully.",
-    removedWord })
-    } catch (error) {
-        return res.status(400).json({
+    success: true,
+    message: `Word "${word}" deleted successfully.`
+  });
+} catch (error) {
+        return res.status(500).json({
       success: false,
       message: "The server crashed",
     });
     }
-  
 });
 
 
