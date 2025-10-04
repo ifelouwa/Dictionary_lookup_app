@@ -1,6 +1,10 @@
 import express from 'express';
-import  dictionary from "../dictionary.json"
+import  dictionary from "../dictionary.json" with {type : "json"}
 import fs from "fs"
+import path from "path";
+
+
+
 
 
 const router = express.Router();
@@ -46,6 +50,7 @@ router.get("/define", (req, res) => {
 //Route for adding a new word
 router.post("/add", (req, res) => {
   try {
+    const dictionary = path.join(process.cwd(), "dictionary.json");
     const { word, definition } = req.body;
 
     if (!word || !definition) {
