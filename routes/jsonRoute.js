@@ -1,12 +1,12 @@
 import express from 'express';
 import  dictionary from "../dictionary.json"
 import fs from "fs"
-import {handleLookUp, handleallWord,handleAdd,handleDelete} from "../Controllers"
+
 
 const router = express.Router();
 
 // Load dictionary data
-const dictionary = JSON.parse(fs.readFileSync("./dictionary.json", "utf-8"));
+//const dictionary = JSON.parse(fs.readFileSync("./dictionary.json", "utf-8"));
 
 // Route for defining a word
 router.get("/define", (req, res) => {
